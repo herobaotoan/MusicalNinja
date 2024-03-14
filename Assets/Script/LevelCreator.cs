@@ -27,8 +27,7 @@ public class LevelCreator : MonoBehaviour
         if (currentTime < (levelTime[currentIndex] + 0.05f) && (currentTime > levelTime[currentIndex] - 0.05f))
         {
             currentIndex++;
-            
-            // Debug.Log("HIT");
+    
             //CREATE TILES
             CreateNote();
             changePosition = !changePosition;
