@@ -8,6 +8,9 @@ public class LevelCreator : MonoBehaviour
     private float[] levelTime = new float[30];
     private float currentTime = 0f;
     private int currentIndex = 0;
+
+    [SerializeField] GameObject notePrefab;
+    private bool changePosition = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +27,11 @@ public class LevelCreator : MonoBehaviour
         if (currentTime < (levelTime[currentIndex] + 0.05f) && (currentTime > levelTime[currentIndex] - 0.05f))
         {
             currentIndex++;
+            
             // Debug.Log("HIT");
             //CREATE TILES
+            CreateNote();
+            changePosition = !changePosition;
         }
     }
 
@@ -39,13 +45,19 @@ public class LevelCreator : MonoBehaviour
             levelTime[i] = float.Parse(output[i]);
         }
     }
+
+    private void CreateNote()
+    {
+        if (changePosition)
+        {
+            Instantiate(notePrefab, new Vector3(0.6f + 1f, 5.3f, 0.2f), Quaternion.identity);
+        } else {
+            Instantiate(notePrefab, new Vector3(0.6f + 0f, 5.3f, 0.2f), Quaternion.identity);
+        }
+    }
     
     // void updateTimer()
     // {
-    //     // int hours = Mathf.FloorToInt(currentTime / 3600f);
-    //     // int minutes = Mathf.FloorToInt((currentTime - hours * 3600f) / 60f);
-    //     // int seconds = Mathf.FloorToInt((currentTime - hours * 3600f) - (minutes * 60f));
-
     //     float minutes = Mathf.FloorToInt(currentTime / 60);
     //     float seconds = Mathf.FloorToInt(currentTime % 60);
     //     Debug.Log(string.Format("{0:00}:{1:00}", minutes, seconds));
