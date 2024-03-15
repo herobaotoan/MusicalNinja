@@ -10,6 +10,7 @@ public class LevelCreator : MonoBehaviour
     private int currentIndex = 0;
 
     [SerializeField] GameObject notePrefab;
+    [SerializeField] GameObject tilePrefab;
     private bool changePosition = false;
     // Start is called before the first frame update
     void Start()
@@ -24,13 +25,16 @@ public class LevelCreator : MonoBehaviour
         // updateTimer();
 
         //Check approximate currentTime with time in LevelTime
-        if (currentTime < (levelTime[currentIndex] + 0.05f) && (currentTime > levelTime[currentIndex] - 0.05f))
+        if (currentIndex < levelTime.Length)
         {
-            currentIndex++;
-    
-            //CREATE TILES
-            CreateNote();
-            changePosition = !changePosition;
+            if (currentTime < (levelTime[currentIndex] + 0.05f) && (currentTime > levelTime[currentIndex] - 0.05f))
+            {
+                currentIndex++;
+        
+                //CREATE NOTE
+                CreateNote();
+                changePosition = !changePosition;
+            }
         }
     }
 
@@ -52,6 +56,17 @@ public class LevelCreator : MonoBehaviour
             Instantiate(notePrefab, new Vector3(0.6f + 1f, 5.3f, 0.2f), Quaternion.identity);
         } else {
             Instantiate(notePrefab, new Vector3(0.6f + 0f, 5.3f, 0.2f), Quaternion.identity);
+        }
+    }
+    private void CreateTile()
+    {
+        if (changePosition)
+        {
+            Instantiate(tilePrefab, new Vector3(0.6f + 1f, 5.3f, 0.2f), Quaternion.identity);
+        } else {
+            GameObject clone = (GameObject)Instantiate(tilePrefab, new Vector3(0.6f + 0f, 5.3f, 0.2f), Quaternion.identity);
+            //Flip vertically
+            clone.transform.eulerAngles = new Vector3(clone.transform.eulerAngles.x, clone.transform.eulerAngles.y + 180f, clone.transform.eulerAngles.z);
         }
     }
     

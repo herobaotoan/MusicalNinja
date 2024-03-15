@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     private float direction = 1f;
-    private bool isJumping = false;
+    public bool isJumping = false;
 
     public void Jump()
     {
@@ -24,7 +24,7 @@ public class CharacterMovement : MonoBehaviour
     private IEnumerator SmoothJump()
     {
         isJumping = true;
-        float time = 0.3f; //Jumping time
+        float time = 0.2f; //Jumping time
         Vector3 start = transform.position;
         Vector3 destination = new Vector3(transform.position.x + direction, transform.position.y, transform.position.z);
 
