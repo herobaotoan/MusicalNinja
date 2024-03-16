@@ -9,11 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2176085550785521094}
-  - component: {fileID: 5049117071625652665}
   - component: {fileID: 343704021237701205}
   - component: {fileID: 1630473197278617826}
   - component: {fileID: 9215922005650636936}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tile(Right) 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,19 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5049117071625652665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6002363129034745650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b35247d4fb7d04fa462696180ab09a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!50 &343704021237701205
 Rigidbody2D:
   serializedVersion: 4
@@ -95,7 +81,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0046055317, y: 0.79143476}
@@ -121,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4397588440516611408}
   - component: {fileID: 150156356921843394}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5227228179197625353}
   - component: {fileID: 275119707380370472}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Note
   m_TagString: Untagged
   m_Icon: {fileID: 0}

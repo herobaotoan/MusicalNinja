@@ -7,11 +7,13 @@ public class NoteBehaviour : MonoBehaviour
     private Rigidbody2D rb;
     public float moveSpeed = 5f;
     public GameObject player;
+    private GameObject score;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
+        score = GameObject.Find("Score");
     }
     
     void FixedUpdate()
@@ -32,6 +34,7 @@ public class NoteBehaviour : MonoBehaviour
             if (player.GetComponent<CharacterMovement>().isJumping)
             {
                 Debug.Log("OK");
+                score.GetComponent<ScoreAppear>().Appear();
             } else {
                 Debug.Log("DEAD");
             }

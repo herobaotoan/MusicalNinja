@@ -20,6 +20,7 @@ public class TileBehaviour : MonoBehaviour
         // }
     }
 
+    //Move down and destroy at bottom
     void FixedUpdate()
     {
         rb.velocity = new Vector2(rb.velocity.x, -moveSpeed);
