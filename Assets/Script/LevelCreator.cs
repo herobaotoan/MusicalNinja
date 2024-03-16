@@ -10,44 +10,123 @@ public class LevelCreator : MonoBehaviour
     private float lastSpawnTime = 0f;
     public float timeBetweenSpawn;
     private int currentIndex = 0;
+    // private int currentIndex2 = 0;
+    // public float timeBetweenSpawnAndPlayer;
 
     [SerializeField] GameObject notePrefab;
     [SerializeField] GameObject tilePrefab;
     [SerializeField] GameObject originalTile; //Used to get position
     private float positionX;
     private bool changePosition = false;
+
+    private AudioSource music;
+
+    // private bool noteCreated = false;
+    // public bool playerJumping = false;
     // Start is called before the first frame update
     void Start()
     {
+        music = GetComponent<AudioSource>();
         ReadTxtFile();
         positionX = originalTile.transform.position.x;
+
+        // CreateNote();
+        // CreateTile();
     }
 
-    // Update is called once per frame
     void Update()
     {
         currentTime += Time.deltaTime;
         // updateTimer();
 
-        //Check approximate currentTime with time in LevelTime
+        if (currentTime > 1.3f)
+        {
+            if (!music.isPlaying)
+            {
+                music.Play();
+            }
+        }
         if (currentIndex < levelTime.Length)
         {
-            if (currentTime < (levelTime[currentIndex] + 0.05f) && (currentTime > levelTime[currentIndex] - 0.05f))
+            
+            if ((currentTime - lastSpawnTime) > timeBetweenSpawn)
             {
-                currentIndex++;
-        
-                //CREATE NOTE
-                CreateNote();
-                changePosition = !changePosition;
-            }
-            else {
-                if ((currentTime - lastSpawnTime) > timeBetweenSpawn)
+                //Check approximate currentTime with time in LevelTime
+                if (currentTime < (levelTime[currentIndex] + 0.08f) && (currentTime > levelTime[currentIndex] - 0.08f))
                 {
+                    currentIndex++;
+            
+                    //CREATE NOTE
+                    CreateNote();
+                    changePosition = !changePosition;
+
+                    lastSpawnTime = currentTime;
+                }
+                else {
+                    //CREATE TILE
                     lastSpawnTime = currentTime;
                     CreateTile();
                 }
             }
         }
+        
+    // void Update()
+    // {
+    //     currentTime += Time.deltaTime;
+    //     // updateTimer();
+
+    //     if (currentTime > 1.3f)
+    //     {
+    //         if (!music.isPlaying)
+    //         {
+    //             music.Play();
+    //         }
+    //     }
+    //     //Check approximate currentTime with time in LevelTime
+    //     if (currentIndex < levelTime.Length)
+    //     {
+    //         if (currentTime < (levelTime[currentIndex] + 0.05f) && (currentTime > levelTime[currentIndex] - 0.05f))
+    //         {
+    //             currentIndex++;
+        
+    //             //CREATE NOTE
+    //             CreateNote();
+    //             changePosition = !changePosition;
+
+    //             noteCreated = true;
+    //         }
+    //         else {
+    //             //CREATE TILE
+    //             if ((currentTime - lastSpawnTime) > timeBetweenSpawn)
+    //             {
+    //                 if (!noteCreated)
+    //                 {
+    //                     lastSpawnTime = currentTime;
+    //                     CreateTile();
+                        
+    //                 } else {
+    //                     noteCreated = false;
+    //                 }
+    //             }
+    //         }
+    //     }
+
+        //SCORE CALCULATION (NOT WORKING)
+        // if (currentTime < (levelTime[currentIndex2] + 0.05f + timeBetweenSpawnAndPlayer) && (currentTime > levelTime[currentIndex2] - 0.05f + timeBetweenSpawnAndPlayer))
+        // {
+        //     currentIndex2 ++;
+        //     if(playerJumping)
+        //     {
+        //         Debug.Log("PASS");
+        //     } else {
+        //         Debug.Log("DEAD");
+        //     }
+        // } else {
+        //     if(playerJumping)
+        //     {
+        //         Debug.Log("DEAD");
+        //     } 
+        // }
     }
 
     public void ReadTxtFile()
@@ -81,6 +160,11 @@ public class LevelCreator : MonoBehaviour
             clone.transform.eulerAngles = new Vector3(clone.transform.eulerAngles.x, clone.transform.eulerAngles.y + 180f, clone.transform.eulerAngles.z);
         }
     }
+
+    // public void TooglePlayerJump()
+    // {
+    //     playerJumping = !playerJumping;
+    // }
     
     // void updateTimer()
     // {

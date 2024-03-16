@@ -6,6 +6,7 @@ public class CharacterMovement : MonoBehaviour
 {
     private float direction = 1f;
     public bool isJumping = false;
+    [SerializeField] GameObject game;
 
     public void Jump()
     {
@@ -24,6 +25,7 @@ public class CharacterMovement : MonoBehaviour
     private IEnumerator SmoothJump()
     {
         isJumping = true;
+        // game.GetComponent<LevelCreator>().TooglePlayerJump();
         float time = 0.2f; //Jumping time
         Vector3 start = transform.position;
         Vector3 destination = new Vector3(transform.position.x + direction, transform.position.y, transform.position.z);
@@ -44,5 +46,14 @@ public class CharacterMovement : MonoBehaviour
             direction = -1f;
         }
         isJumping = false;
+        // game.GetComponent<LevelCreator>().TooglePlayerJump();
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("Tile"))
+        {
+            Debug.Log("DEAD");
+        }
     }
 }

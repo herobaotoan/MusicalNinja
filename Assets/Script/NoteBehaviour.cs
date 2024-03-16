@@ -13,12 +13,6 @@ public class NoteBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
     void FixedUpdate()
     {
@@ -30,13 +24,7 @@ public class NoteBehaviour : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (coll.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("HIT");
-        }
-    }
+    // SCORE CALCULATION (OLD)
     void OnTriggerExit2D(Collider2D coll)
     {
         if (coll.gameObject.CompareTag("Player"))
