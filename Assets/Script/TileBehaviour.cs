@@ -16,7 +16,7 @@ public class TileBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         if (!stopCreate)
         {
-            StartCoroutine("DelayedCreateTile");
+            // StartCoroutine("DelayedCreateTile");
         }
     }
 

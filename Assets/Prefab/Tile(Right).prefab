@@ -54,6 +54,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  stopCreate: 0
 --- !u!50 &343704021237701205
 Rigidbody2D:
   serializedVersion: 4
