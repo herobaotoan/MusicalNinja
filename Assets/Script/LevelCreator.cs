@@ -39,7 +39,7 @@ public class LevelCreator : MonoBehaviour
     {
         currentTime += Time.deltaTime;
         // updateTimer();
-
+        //Delayed music start
         if (currentTime > 1.3f)
         {
             if (!music.isPlaying)
@@ -48,8 +48,8 @@ public class LevelCreator : MonoBehaviour
             }
         }
         if (currentIndex < levelTime.Length)
-        {
-            
+        {   
+            //Create an object after a period of time
             if ((currentTime - lastSpawnTime) > timeBetweenSpawn)
             {
                 //Check approximate currentTime with time in LevelTime
@@ -57,15 +57,15 @@ public class LevelCreator : MonoBehaviour
                 {
                     currentIndex++;
             
-                    //CREATE NOTE
+                    //CREATE NOTE and BLOCK
                     CreateNote();
                     CreateBlock();
                     changePosition = !changePosition;
 
                     lastSpawnTime = currentTime;
                 }
+                //If not NOTE time, CREATE TILE
                 else {
-                    //CREATE TILE
                     lastSpawnTime = currentTime;
                     CreateTile();
                 }
@@ -148,7 +148,7 @@ public class LevelCreator : MonoBehaviour
         {
             Instantiate(notePrefab, new Vector3(positionX * -1f, 5.3f, 0.2f), Quaternion.identity);
         } else {
-            Instantiate(notePrefab, new Vector3(positionX + 0f, 5.3f, 0.2f), Quaternion.identity);
+            Instantiate(notePrefab, new Vector3(positionX, 5.3f, 0.2f), Quaternion.identity);
         }
     }
     private void CreateBlock()
@@ -168,7 +168,7 @@ public class LevelCreator : MonoBehaviour
         {
             Instantiate(tilePrefab, new Vector3(positionX * -1f, 5.3f, 0.2f), Quaternion.identity);
         } else {
-            GameObject clone = (GameObject)Instantiate(tilePrefab, new Vector3(positionX + 0f, 5.3f, 0.2f), Quaternion.identity);
+            GameObject clone = (GameObject)Instantiate(tilePrefab, new Vector3(positionX, 5.3f, 0.2f), Quaternion.identity);
             //Flip vertically
             clone.transform.eulerAngles = new Vector3(clone.transform.eulerAngles.x, clone.transform.eulerAngles.y + 180f, clone.transform.eulerAngles.z);
         }

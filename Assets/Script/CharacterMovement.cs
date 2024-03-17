@@ -68,13 +68,14 @@ public class CharacterMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        //Make sure
         //Change Direction
         if (direction < 1f)
         {
+            //Make sure player stand on the right position
             transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z);
             direction = 1f;
         } else {
+            //Make sure player stand on the right position
             transform.position = new Vector3(startPosition.x * -direction, startPosition.y, startPosition.z);
             direction = -1f;
         }
@@ -89,7 +90,9 @@ public class CharacterMovement : MonoBehaviour
     private void ThrowKnife(float direction)
     {
         GameObject clone = (GameObject)Instantiate(knifePrefab, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
+        //Rotate the knife
         clone.transform.eulerAngles = new Vector3(clone.transform.eulerAngles.x, clone.transform.eulerAngles.y, 80f * direction);
+        //Add velocity to the knife
         clone.GetComponent<Rigidbody2D>().velocity = new Vector2(knifeSpeed * -direction, 2f);
 
     }
