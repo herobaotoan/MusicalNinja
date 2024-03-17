@@ -9,6 +9,14 @@ public class CharacterMovement : MonoBehaviour
     public float jumpTime = 0.1f;
     public LayerMask groundLayer;
     [SerializeField] GameObject game;
+    [SerializeField] GameObject knifePrefab;
+    public float knifeSpeed = 5f;
+    private Vector3 startPosition;
+
+    void Start()
+    {
+        startPosition = transform.position;
+    }
 
     public void Jump()
     {
@@ -45,11 +53,12 @@ public class CharacterMovement : MonoBehaviour
     
     private IEnumerator SmoothJump()
     {
+        ThrowKnife(direction);
         isJumping = true;
         // game.GetComponent<LevelCreator>().TooglePlayerJump();
         // float time = 0.2f; //Jumping time
         Vector3 start = transform.position;
-        Vector3 destination = new Vector3(transform.position.x + direction, transform.position.y, transform.position.z);
+        Vector3 destination = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
 
         float elapsedTime = 0;
         
@@ -59,18 +68,30 @@ public class CharacterMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        //Make sure
         //Change Direction
         if (direction < 1f)
         {
+            transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z);
             direction = 1f;
         } else {
+            transform.position = new Vector3(startPosition.x * -direction, startPosition.y, startPosition.z);
             direction = -1f;
         }
         isJumping = false;
+
         
         //Checkground after jumping
         yield return StartCoroutine("DelayedCheckGround");
         // game.GetComponent<LevelCreator>().TooglePlayerJump();
+    }
+
+    private void ThrowKnife(float direction)
+    {
+        GameObject clone = (GameObject)Instantiate(knifePrefab, new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Quaternion.identity);
+        clone.transform.eulerAngles = new Vector3(clone.transform.eulerAngles.x, clone.transform.eulerAngles.y, 80f * direction);
+        clone.GetComponent<Rigidbody2D>().velocity = new Vector2(knifeSpeed * -direction, 2f);
+
     }
 
     // void OnTriggerExit2D(Collider2D coll)

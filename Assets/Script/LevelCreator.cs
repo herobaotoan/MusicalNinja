@@ -15,6 +15,7 @@ public class LevelCreator : MonoBehaviour
 
     [SerializeField] GameObject notePrefab;
     [SerializeField] GameObject tilePrefab;
+    [SerializeField] GameObject blockPrefab;
     [SerializeField] GameObject originalTile; //Used to get position
     private float positionX;
     private bool changePosition = false;
@@ -52,12 +53,13 @@ public class LevelCreator : MonoBehaviour
             if ((currentTime - lastSpawnTime) > timeBetweenSpawn)
             {
                 //Check approximate currentTime with time in LevelTime
-                if (currentTime < (levelTime[currentIndex] + 0.08f) && (currentTime > levelTime[currentIndex] - 0.08f))
+                if (currentTime < (levelTime[currentIndex] + 0.1f) && (currentTime > levelTime[currentIndex] - 0.1f))
                 {
                     currentIndex++;
             
                     //CREATE NOTE
                     CreateNote();
+                    CreateBlock();
                     changePosition = !changePosition;
 
                     lastSpawnTime = currentTime;
@@ -144,16 +146,27 @@ public class LevelCreator : MonoBehaviour
     {
         if (changePosition)
         {
-            Instantiate(notePrefab, new Vector3(positionX + 1f, 5.3f, 0.2f), Quaternion.identity);
+            Instantiate(notePrefab, new Vector3(positionX * -1f, 5.3f, 0.2f), Quaternion.identity);
         } else {
             Instantiate(notePrefab, new Vector3(positionX + 0f, 5.3f, 0.2f), Quaternion.identity);
+        }
+    }
+    private void CreateBlock()
+    {
+        if (changePosition)
+        {
+            Instantiate(blockPrefab, new Vector3(positionX * -3.5f, 7f, 0.2f), Quaternion.identity);
+        } else {
+            GameObject clone = (GameObject)Instantiate(blockPrefab, new Vector3(positionX * 3.5f, 7f, 0.2f), Quaternion.identity);
+            //Flip vertically
+            clone.transform.eulerAngles = new Vector3(clone.transform.eulerAngles.x, clone.transform.eulerAngles.y + 180f, clone.transform.eulerAngles.z);
         }
     }
     private void CreateTile()
     {
         if (changePosition)
         {
-            Instantiate(tilePrefab, new Vector3(positionX + 1f, 5.3f, 0.2f), Quaternion.identity);
+            Instantiate(tilePrefab, new Vector3(positionX * -1f, 5.3f, 0.2f), Quaternion.identity);
         } else {
             GameObject clone = (GameObject)Instantiate(tilePrefab, new Vector3(positionX + 0f, 5.3f, 0.2f), Quaternion.identity);
             //Flip vertically
